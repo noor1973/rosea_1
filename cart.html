@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>سلة Rosea</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body{font-family:Arial;background:#f6f3ff;margin:0;padding:20px}
+    h1{text-align:center;color:#3a2669}
+    .item{background:#fff;padding:15px;margin-bottom:10px;border-radius:10px;display:flex;justify-content:space-between;align-items:center}
+    .item span{font-size:14px}
+    .total{font-weight:bold;font-size:18px;text-align:center;margin-top:20px}
+    button{background:#7b4bff;color:#fff;border:none;padding:10px 15px;border-radius:8px;cursor:pointer}
+  </style>
+</head>
+
+<body>
+
+<h1>🛒 سلة المشتريات</h1>
+
+<div id="cartItems"></div>
+
+<div class="total" id="total"></div>
+
+<div style="text-align:center;margin-top:20px">
+  <button onclick="clearCart()">تفريغ السلة</button>
+  <br><br>
+  <a href="index.html">⬅ الرجوع للمتجر</a>
+</div>
+
+<script>
+  const cart = JSON.parse(localStorage.getItem("rosea_cart")) || [];
+  const cartDiv = document.getElementById("cartItems");
+  let total = 0;
+
+  if(cart.length === 0){
+    cartDiv.innerHTML = "<p style='text-align:center'>السلة فارغة</p>";
+  } else {
+    cart.forEach(item=>{
+      total += item.price;
+      cartDiv.innerHTML += `
+        <div class="item">
+          <span>${item.name}</span>
+          <span>${item.price.toLocaleString()} د.ع</span>
+        </div>
+      `;
+    });
+  }
+
+  document.getElementById("total").innerText =
+    "المجموع: " + total.toLocaleString() + " د.ع";
+
+  function clearCart(){
+    localStorage.removeItem("rosea_cart");
+    location.reload();
+  }
+</script>
+
+</body>
+</html>
