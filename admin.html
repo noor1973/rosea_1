@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>إدارة منتجات Rosea</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{font-family:Arial;background:#f6f3ff;padding:20px}
+.box{background:#fff;padding:20px;border-radius:14px;max-width:500px;margin:auto}
+h1{text-align:center;color:#3a2669}
+input,button{width:100%;padding:10px;margin-top:10px;border-radius:8px;border:1px solid #ccc}
+button{background:#7b4bff;color:#fff;border:none;cursor:pointer}
+</style>
+</head>
+
+<body>
+<div class="box">
+<h1>لوحة الإدارة</h1>
+
+<input id="name" placeholder="اسم المنتج">
+<input id="price" type="number" placeholder="السعر">
+<input id="image" placeholder="رابط الصورة">
+
+<button onclick="addProduct()">إضافة المنتج</button>
+</div>
+
+<script>
+let products = JSON.parse(localStorage.getItem("rosea_products")) || [];
+
+function addProduct(){
+  const product = {
+    id: Date.now(),
+    name: name.value,
+    price: Number(price.value),
+    image: image.value
+  };
+  products.push(product);
+  localStorage.setItem("rosea_products", JSON.stringify(products));
+  alert("تمت إضافة المنتج 🌸");
+}
+</script>
+</body>
+</html>
